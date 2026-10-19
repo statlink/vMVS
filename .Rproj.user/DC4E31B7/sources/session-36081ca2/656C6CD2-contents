@@ -1,0 +1,67 @@
+\name{perm.reg0}
+\alias{perm.reg0}
+\title{
+Permutation test for a predictor in von Mises regression
+}
+
+\description{
+Permutation test for a predictor in von Mises regression
+}
+
+\usage{
+perm.reg0(y, x, R = 999L, tol = 1e-6, maxiters = 500L, ncores = 1L)
+}
+
+\arguments{
+\item{y}{
+A two column matrix with Euclidean representation of the angles.
+}
+\item{x}{
+A numeric vector or a matrix with continuous predictor data. Rows correspond to
+observations, and columns correspond to candidate predictor variables. If a
+matrix is supplied, the function fits the regression using the predictors
+provided in \code{x}.
+}
+\item{R}{
+How many permutations to perform for the hypothesis testing of each candidate
+predictor variable
+}
+\item{tol}{
+The tolerance value to terminate the Newton-Raphson algorithm.
+}
+\item{maxiters}{
+The maximum number of iterations allowed in the Newton-Raphson algorithm.
+}
+\item{ncores}{
+The number of cores to use. If greater than 1, parallel computing will take
+place.
+}
+}
+
+\value{
+A numeric value giving the permutation p-value for the test.
+}
+
+\references{
+P. J. Paine, S. P. Preston, M. Tsagris and Andrew T. A. Wood (2020).
+Spherical regression models with general covariates and anisotropic errors.
+Statistics and Computing, 30(1): 153--165.
+}
+
+\author{
+Michail Tsagris and Christos Adam
+
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{econp266@econ.soc.uoc.gr}.
+}
+
+\seealso{
+\code{\link{vm.reg}}, \code{\link{perm.reg1}}, \code{\link{vm.gomp}}
+}
+
+\examples{
+x <- rnorm(100)
+theta <- runif(100, 0, 2 * pi)
+y <- cbind(cos(theta), sin(theta))
+perm.reg0(y, x)
+}

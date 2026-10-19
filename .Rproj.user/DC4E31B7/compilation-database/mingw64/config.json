@@ -1,0 +1,28 @@
+{
+    "args": [
+        "-std=gnu++20",
+        "-IC:/PROGRA~1/R/R-46~1.1/include",
+        "-DNDEBUG",
+        "-DRCPP_PARALLEL_USE_TBB=1",
+        "-IC:/Users/mtsag/AppData/Local/R/win-library/4.6/Rcpp/include",
+        "-IC:/Users/mtsag/AppData/Local/R/win-library/4.6/RcppParallel/include",
+        "-IC:/Users/mtsag/AppData/Local/R/win-library/4.6/RcppArmadillo/include",
+        "-IC:/Users/mtsag/AppData/Local/R/win-library/4.6/RcppGSL/include",
+        "-DEIGEN_DONT_VECTORIZE",
+        "-nostdinc",
+        "-IC:/rtools45/x86_64-w64-mingw32.static.posix/bin/../lib/gcc/x86_64-w64-mingw32.static.posix/14.3.0/include/c++",
+        "-IC:/rtools45/x86_64-w64-mingw32.static.posix/bin/../lib/gcc/x86_64-w64-mingw32.static.posix/14.3.0/include/c++/x86_64-w64-mingw32.static.posix",
+        "-IC:/rtools45/x86_64-w64-mingw32.static.posix/bin/../lib/gcc/x86_64-w64-mingw32.static.posix/14.3.0/include/c++/backward",
+        "-IC:/rtools45/x86_64-w64-mingw32.static.posix/bin/../lib/gcc/x86_64-w64-mingw32.static.posix/14.3.0/include",
+        "-IC:/rtools45/x86_64-w64-mingw32.static.posix/bin/../lib/gcc/x86_64-w64-mingw32.static.posix/14.3.0/../../../../include",
+        "-IC:/rtools45/x86_64-w64-mingw32.static.posix/bin/../lib/gcc/x86_64-w64-mingw32.static.posix/14.3.0/include-fixed",
+        "-include",
+        "C:/Users/mtsag/Documents/GitHub/vMVS/.Rproj.user/DC4E31B7/compilation-database/mingw64/cpp-definitions.h"
+    ],
+    "pch": "RcppArmadillo",
+    "is_cpp": true,
+    "hash": "179239881717923988171792398817",
+    "compiler": "16001004037050314525",
+    "rversion": "4.6.1",
+    "dbversion": 4
+}

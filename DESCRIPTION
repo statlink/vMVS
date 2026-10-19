@@ -13,4 +13,4 @@ Imports: Rfast, stats, Rcpp (>= 1.1.2), RcppParallel (>= 5.1.11.2)
 LinkingTo: Rcpp, RcppParallel, RcppArmadillo, RcppGSL
 SystemRequirements: GNU make
 Encoding: UTF-8
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1

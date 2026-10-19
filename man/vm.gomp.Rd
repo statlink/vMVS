@@ -71,15 +71,17 @@ The \eqn{\gamma}-OMP algorithm for feature selection with application to gene
 expression data. IEEE/ACM Transactions on Computational Biology and
 Bioinformatics, 19(2): 1214--1224.
 
-P. J. Paine, S. P. Preston, M. Tsagris and Andrew T. A. Wood (2020).
+Paine P.J., Preston, S.P. Tsagris M. and Wood Andrew T.A. (2020).
 Spherical regression models with general covariates and anisotropic errors.
 Statistics and Computing, 30(1): 153--165.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris and Christos Adam
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{econp266@econ.soc.uoc.gr}.
+.
 }
 %\note{
 %%  ~~further notes~~
@@ -90,7 +92,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-x <- matrix( rnorm(500 * 20), ncol = 20)
+x <- matrix( rnorm(500 * 50), ncol = 50)
 y <- runif(500, 0, 2*pi)
 a <- vm.gomp(y, x)
 }

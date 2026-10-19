@@ -65,20 +65,16 @@ representation.
 }
 
 \references{
-P. J. Paine, S. P. Preston, M. Tsagris and Andrew T. A. Wood (2020).
+Paine P.J., Preston, S.P. Tsagris M. and Wood Andrew T.A. (2020).
 Spherical regression models with general covariates and anisotropic errors.
 Statistics and Computing, 30(1): 153--165.
-
-Tsagris M., Papadovasilakis Z., Lakiotaki K. and Tsamardinos I. (2022).
-The \eqn{\gamma}-OMP algorithm for feature selection with application to gene
-expression data. IEEE/ACM Transactions on Computational Biology and
-Bioinformatics, 19(2): 1214--1224.
 }
 
 \author{
-Michail Tsagris.
+Michail Tsagris and Christos Adam
 
-R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
+R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
+Christos Adam \email{econp266@econ.soc.uoc.gr}.
 }
 %\note{
 %%  ~~further notes~~

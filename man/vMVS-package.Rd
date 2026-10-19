@@ -20,7 +20,7 @@ License: \tab GPL-2\cr
 }
 
 \author{
-Michail Tsagris \email{mtsagris@uoc.gr}.
+Michail Tsagris \email{mtsagris@uoc.gr} and Christos Adam \email{econp266@econ.soc.uoc.gr}.
 }
 
 \section{Maintainers}{
