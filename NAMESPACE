@@ -1,10 +1,7 @@
-#useDynLib(pchc, .registration = TRUE)
-
+useDynLib(vMVS, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+importFrom(RcppParallel,RcppParallelLibs)
 importFrom("Rfast", standardise, vmf.mle, rowsums, eachcol.apply)
 importFrom("stats", model.matrix)
 
-exportPattern("^[[:alpha:]]+")
-exportPattern("^[^\\.]")
-export(.onAttach)
-
-
+export(vm.reg, perm.reg0, perm.reg1, vm.gomp)

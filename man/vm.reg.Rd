@@ -9,7 +9,7 @@ von Mises regression model.
 }
 
 \usage{
-vm.reg(y, x, rads = TRUE, xnew = NULL, tol = 1e-6, maxiters = 500)
+vm.reg(y, x, rads = TRUE, xnew = NULL, tol = 1e-6, maxiters = 500L, ncores = 1L)
 }
 
 \arguments{
@@ -24,14 +24,19 @@ The independent variable(s). Can be Euclidean or categorical (factor variables).
 If the response is expressed in angles set this to FALSE.
 }
 \item{xnew}{
-The new values of some independent variable(s) whose circular values you want to predict.
-The can be Euclidean or categorical. If you have no new x values, leave it NULL (default).
+The new values of some independent variable(s) whose circular values you want
+to predict. The can be Euclidean or categorical. If you have no new x values,
+leave it NULL (default).
 }
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson algorithm.
 }
 \item{maxiters}{
 The maximum number of iterations allowed in the Newton-Raphson algorithm.
+}
+\item{ncores}{
+The number of cores to use. If greater than 1, parallel computing will take
+place.
 }
 }
 
@@ -65,8 +70,9 @@ Spherical regression models with general covariates and anisotropic errors.
 Statistics and Computing, 30(1): 153--165.
 
 Tsagris M., Papadovasilakis Z., Lakiotaki K. and Tsamardinos I. (2022).
-The \eqn{\gamma}-OMP algorithm for feature selection with application to gene expression data.
-IEEE/ACM Transactions on Computational Biology and Bioinformatics, 19(2): 1214--1224.
+The \eqn{\gamma}-OMP algorithm for feature selection with application to gene
+expression data. IEEE/ACM Transactions on Computational Biology and
+Bioinformatics, 19(2): 1214--1224.
 }
 
 \author{
