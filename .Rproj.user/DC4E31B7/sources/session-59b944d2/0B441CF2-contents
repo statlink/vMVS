@@ -1,9 +1,0 @@
-#useDynLib(pchc, .registration = TRUE)
-
-importFrom("Rfast", standardise, vmf.mle, rowsums, eachcol.apply)
-
-exportPattern("^[[:alpha:]]+")
-exportPattern("^[^\\.]")
-export(.onAttach)
-
-

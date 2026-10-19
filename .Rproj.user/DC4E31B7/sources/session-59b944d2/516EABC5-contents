@@ -1,5 +1,0 @@
-m <- rbn2(1000, p = 50, nei = 5)
-G <- m$G
-x <- m$x
-a1 <- omp.network(x, method = "ar2", tol = 0.001)
-a2 <- omp.network(x, method = "ar2", tol = 0.1)
