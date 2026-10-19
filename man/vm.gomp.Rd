@@ -1,15 +1,18 @@
 \name{vm.gomp}
 \alias{vm.gomp}
 \title{
-The gama-Orthogonal Matching Pursuit (gamma-OMP) algorithm for the von Mises regression
+The gama-Orthogonal Matching Pursuit (gamma-OMP) algorithm for the von Mises
+regression
 }
 
 \description{
-The \eqn{\gamma}-Orthogonal Matching Pursuit (\eqn{\gamma}-OMP) algorithm for the von Mises regression.
+The \eqn{\gamma}-Orthogonal Matching Pursuit (\eqn{\gamma}-OMP) algorithm for
+the von Mises regression.
 }
 
 \usage{
-vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499)
+vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, tol = 1e-6,
+        maxiters = 500L, ncores = 1L)
 }
 
 \arguments{
@@ -18,7 +21,8 @@ A vector with the circular data expressed in radians, or angles. It can also
 be a matrix with Euclidean representation of the angles.
 }
 \item{x}{
-A matrix with continuous data, where the rows denote the observations and the columns are the variables.
+A matrix with continuous data, where the rows denote the observations and the
+columns are the variables.
 }
 \item{rads}{
 If the response is expressed in angles set this to FALSE.
@@ -30,7 +34,18 @@ If this is TRUE the independent variables are standardised.
 The significance level.
 }
 \item{R}{
-How many permutations to perform for the hypothesis testing of each candidate predictor variable
+How many permutations to perform for the hypothesis testing of each candidate
+predictor variable
+}
+\item{tol}{
+The tolerance value to terminate the Newton-Raphson algorithm.
+}
+\item{maxiters}{
+The maximum number of iterations allowed in the Newton-Raphson algorithm.
+}
+\item{ncores}{
+The number of cores to use. If greater than 1, parallel computing will take
+place.
 }
 }
 
@@ -40,18 +55,21 @@ A list including:
 The runtime of the algorithm
 }
 \item{res}{
-For the case of "gomp" a matrix with three columns. The selected variable(s), the log-likelihood
-with each selected variable and the p-value of each selected variable.
+For the case of "gomp" a matrix with three columns. The selected variable(s),
+the log-likelihood with each selected variable and the p-value of each selected
+variable.
 }
 \item{mod}{
-The output of the function \code{ \link{vm.reg} } where the model is fitted with the selected variables.
+The output of the function \code{ \link{vm.reg} } where the model is fitted with
+the selected variables.
 }
 }
 
 \references{
 Tsagris M., Papadovasilakis Z., Lakiotaki K. and Tsamardinos I. (2022).
-The \eqn{\gamma}-OMP algorithm for feature selection with application to gene expression data.
-IEEE/ACM Transactions on Computational Biology and Bioinformatics, 19(2): 1214--1224.
+The \eqn{\gamma}-OMP algorithm for feature selection with application to gene
+expression data. IEEE/ACM Transactions on Computational Biology and
+Bioinformatics, 19(2): 1214--1224.
 
 P. J. Paine, S. P. Preston, M. Tsagris and Andrew T. A. Wood (2020).
 Spherical regression models with general covariates and anisotropic errors.
