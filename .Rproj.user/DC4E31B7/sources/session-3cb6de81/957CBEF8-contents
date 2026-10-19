@@ -1,0 +1,182 @@
+// [[Rcpp::depends(RcppArmadillo)]]
+
+#include <RcppArmadillo.h>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+// [[Rcpp::export]]
+Rcpp::List forward_loop_cpp(
+    const arma::mat& x,
+    const arma::mat& R,
+    const arma::mat& xx,
+    const arma::vec& ini_sel,
+    Rcpp::NumericMatrix G,
+    Rcpp::List Rho,
+    const double logalpha
+) {
+  const int n = static_cast<int>(x.n_rows);
+  const int d = static_cast<int>(x.n_cols);
+
+  Rcpp::NumericMatrix out_G = Rcpp::clone(G);
+  Rcpp::List out_rho = Rho;
+
+  std::vector<int> selected;
+  selected.reserve(d);
+
+  std::vector<unsigned char> available(d);
+
+  std::vector<double> rho;
+  rho.reserve(d + 1);
+
+  arma::vec correlations(d);
+  arma::vec b;
+  arma::mat A;
+  arma::vec beta;
+
+  for (int j = 0; j < d; ++j) {
+    selected.clear();
+    rho.clear();
+
+    std::fill(available.begin(), available.end(), 1);
+
+    const int first = static_cast<int>(ini_sel[j]) - 1;
+
+    selected.push_back(first);
+    available[j] = 0;
+    available[first] = 0;
+
+    // Initial residual: y - x_first * R(first, j).
+    arma::vec y = x.col(j);
+    arma::vec res = y - x.col(first) * R(first, j);
+
+    double sse2 = arma::dot(res, res);
+
+    // Initial correlations x' * res, computed from xx.
+    for (int a = 0; a < d; ++a) {
+      correlations[a] =
+        xx(a, j) - xx(a, first) * R(first, j);
+    }
+
+    const double df0 = n - 2.0;
+    const double stat0 =
+      (n - 1.0 - sse2) / sse2 * df0;
+
+    rho.push_back(0.0);
+    rho.push_back(
+      R::pf(stat0, 1.0, df0, false, true)
+    );
+
+    int i = 1;
+
+    while (rho[i] < logalpha && (i + 1) < n) {
+      ++i;
+
+      // Find the largest absolute residual correlation.
+      int best = -1;
+      double best_abs = -1.0;
+
+      for (int a = 0; a < d; ++a) {
+        if (available[a]) {
+          const double v = std::abs(correlations[a]);
+
+          if (v > best_abs) {
+            best_abs = v;
+            best = a;
+          }
+        }
+      }
+
+      if (best < 0) {
+        rho.resize(i + 1, 0.0);
+        break;
+      }
+
+      selected.push_back(best);
+      available[best] = 0;
+
+      const int p = static_cast<int>(selected.size());
+      const double sse1 = sse2;
+
+      // Build the selected Gram matrix and X_S' y.
+      A.set_size(p, p);
+      b.set_size(p);
+
+      for (int a = 0; a < p; ++a) {
+        const int sa = selected[a];
+        b[a] = xx(sa, j);
+
+        for (int c = 0; c < p; ++c) {
+          A(a, c) = xx(sa, selected[c]);
+        }
+      }
+
+      const bool solved = arma::solve(
+        beta, A, b, arma::solve_opts::no_approx
+      );
+
+      rho.resize(i + 1, 0.0);
+
+      if (!solved || !beta.is_finite()) {
+        // Match the original fallback:
+        // retain the previous residual and SSE.
+        rho[i] = 0.0;
+      } else {
+        // SSE = y'y - beta' X_S'y.
+        // Assumes xx = crossprod(x).
+        sse2 = xx(j, j) - arma::dot(beta, b);
+
+        const double df = n - p - 1.0;
+        const double stat =
+          (sse1 - sse2) / sse2 * df;
+
+        rho[i] = R::pf(
+          stat, 1.0, df, false, true
+        );
+
+        // Update all residual correlations in O(d*p),
+        // rather than scanning all n observations.
+        for (int a = 0; a < d; ++a) {
+          double value = xx(a, j);
+
+          for (int c = 0; c < p; ++c) {
+            value -= xx(a, selected[c]) * beta[c];
+          }
+
+          correlations[a] = value;
+        }
+      }
+    }
+
+    // Preserve the original output conventions.
+    const int len = static_cast<int>(selected.size());
+
+    Rcpp::NumericVector rho_out(len);
+    Rcpp::CharacterVector rho_names(len);
+
+    for (int a = 0; a < len; ++a) {
+      rho_out[a] = a < static_cast<int>(rho.size())
+      ? rho[a]
+      : NA_REAL;
+    }
+
+    rho_names[0] = "0";
+
+    for (int a = 1; a < len; ++a) {
+      rho_names[a] = std::to_string(selected[a - 1] + 1);
+    }
+
+    rho_out.attr("names") = rho_names;
+    out_rho[j] = rho_out;
+
+    for (int a = 0; a < len - 1; ++a) {
+      out_G(j, selected[a]) = 1.0;
+    }
+  }
+
+  return Rcpp::List::create(
+    Rcpp::Named("G") = out_G,
+    Rcpp::Named("Rho") = out_rho
+  );
+}
+
