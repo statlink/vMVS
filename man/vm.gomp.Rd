@@ -11,8 +11,8 @@ the von Mises regression.
 }
 
 \usage{
-vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, tol = 1e-6,
-        maxiters = 500L, ncores = 1L)
+vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, ebic = FALSE,
+model = FALSE, tol = 1e-6, maxiters = 500L, ncores = 1L)
 }
 
 \arguments{
@@ -93,7 +93,7 @@ Christos Adam \email{econp266@econ.soc.uoc.gr}.
 
 \examples{
 x <- matrix( rnorm(500 * 50), ncol = 50)
-y <- runif(500, 0, 2*pi)
+y <- runif(500, 0, 2 * pi)
 a <- vm.gomp(y, x)
 }
 
