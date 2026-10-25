@@ -42,7 +42,7 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, eb
   res <- cbind( c(0, sela), lik[1:(len + 1)], c(NA, rho[seq_len(len) + 1]) )
   colnames(res) <- c("Selected", "log-likelihood", "p-value")
 
-  if ( ebic ) {
+  if ( ebic  &  dim(res)[1] > 1 ) {
     sel <- 1:c(len + 1)
     if ( n > p )  gam <- 0 else gam <- 0.5
     for ( i in 1:len ) {
@@ -51,16 +51,21 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, eb
         sel[i + 1] <- 0
       }
     }
-    res <- res[sel, ]
-    sela <- res[-1, 1]
+    res <- res[sel, , drop = FALSE]
+    if ( dim(res)[1] > 1 )  sela <- res[-1, 1]  else  sela <- 0
   }
 
   mod <- NULL
-  if ( model )  mod <- vm.reg(y, x[, sela, drop = FALSE], tol = tol, maxiters = maxiters, ncores = ncores)
+  if ( model &  dim(res)[1] > 1 )  {
+    mod <- vm.reg(y, x[, sela, drop = FALSE], tol = tol, maxiters = maxiters, ncores = ncores)
+  }
+
   runtime <- proc.time() - runtime
 
   list(runtime = runtime, res = res, mod = mod)
 }
+
+
 
 
 # vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499) {
