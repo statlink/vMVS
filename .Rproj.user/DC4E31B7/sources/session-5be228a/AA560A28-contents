@@ -37,6 +37,13 @@ The significance level.
 How many permutations to perform for the hypothesis testing of each candidate
 predictor variable
 }
+\item{ebic}{
+If you set this equal to TRUE, then it uses the exteded BIC to retain the candidate variable,
+even if it its p-value is less than the selected threshold.
+}
+\item{model}{
+Do you want to return the model with the final selected variables?
+}
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson algorithm.
 }
@@ -61,7 +68,7 @@ variable.
 }
 \item{mod}{
 The output of the function \code{ \link{vm.reg} } where the model is fitted with
-the selected variables.
+the selected variables, if the argument "model" was set equal to TRUE.
 }
 }
 
@@ -74,6 +81,9 @@ Bioinformatics, 19(2): 1214--1224.
 Paine P.J., Preston, S.P. Tsagris M. and Wood Andrew T.A. (2020).
 Spherical regression models with general covariates and anisotropic errors.
 Statistics and Computing, 30(1): 153--165.
+
+Chen J. and Chen Z. (2012). Extended BIC for small-n-large-P sparse GLM.
+Statistica Sinica, 22(2): 555--574.
 }
 
 \author{
