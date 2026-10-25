@@ -56,15 +56,18 @@ place.
 }
 }
 
+\details{
+The \eqn{\gamma}-OMP adopted to the von Mises regression.
+}
+
 \value{
 A list including:
 \item{runtime}{
 The runtime of the algorithm
 }
 \item{res}{
-For the case of "gomp" a matrix with three columns. The selected variable(s),
-the log-likelihood with each selected variable and the p-value of each selected
-variable.
+A matrix with three columns. The selected variable(s), the log-likelihood
+with each selected variable and the p-value of each selected variable.
 }
 \item{mod}{
 The output of the function \code{ \link{vm.reg} } where the model is fitted with
@@ -87,18 +90,18 @@ Statistica Sinica, 22(2): 555--574.
 }
 
 \author{
-Michail Tsagris and Christos Adam
+Michail Tsagris and Christos Adam.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
 Christos Adam \email{econp266@econ.soc.uoc.gr}.
-.
 }
 %\note{
 %%  ~~further notes~~
 %}
 
 \seealso{
-\code{ \link{vm.reg} }
+\code{ \link{vmgomp.ebic.update}, \link{vm.reg}
+}
 }
 
 \examples{

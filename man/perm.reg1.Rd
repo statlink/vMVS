@@ -51,7 +51,7 @@ Statistics and Computing, 30(1): 153--165.
 }
 
 \author{
-Michail Tsagris and Christos Adam
+Michail Tsagris and Christos Adam.
 
 R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr} and
 Christos Adam \email{econp266@econ.soc.uoc.gr}.
