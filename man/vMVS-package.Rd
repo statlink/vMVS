@@ -14,7 +14,7 @@ Variable selection algorithms for the von Mises regression.
 Package: \tab vMVS\cr
 Type: \tab Package\cr
 Version: \tab 1.0 \cr
-Date: \tab 2026-10-18\cr
+Date: \tab 2026-10-25\cr
 License: \tab GPL-2\cr
 }
 }

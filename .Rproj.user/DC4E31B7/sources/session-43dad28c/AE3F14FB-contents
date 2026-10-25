@@ -95,5 +95,6 @@ Christos Adam \email{econp266@econ.soc.uoc.gr}.
 x <- matrix( rnorm(500 * 50), ncol = 50)
 y <- runif(500, 0, 2 * pi)
 a <- vm.gomp(y, x)
+b <- vm.gomp(y, x, ebic = TRUE)
 }
 
