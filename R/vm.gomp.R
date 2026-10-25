@@ -56,8 +56,9 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L,
   sela <- NULL
   rho <- c( 0, perm.reg0( y, x[, sel, drop = FALSE], R = R,
             tol = tol, maxiters = maxiters, ncores = ncores) )
-
   i <- 2
+  #x2 <- x^2        # once, outside the loop
+    
   while (rho[i] < alpha & length(sela) < p - 1 & i < n) {
     i <- i + 1
     sela <- c(sela, sel)
@@ -66,7 +67,11 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L,
                   tol = tol, maxiters = maxiters, ncores = ncores)
     lik[i - 1] <- mod$loglik
     res <- y - mod$est * mod$A1
-    r <- numeric(p)
+	#ii <- ind[ind > 0]
+    #U  <- cbind( Rfast::eachcol.apply(x, res[, 1], indices = ii), Rfast::eachcol.apply(x, res[, 2], indices = ii) )
+    #M  <- crossprod( x2[, ii, drop = FALSE], cbind(mod$d11, mod$d22, mod$d12) )
+    #r[ii] <- ( U[, 1]^2 * M[, 2] - 2 * U[, 1] * U[, 2] * M[, 3] + U[, 2]^2 * M[, 1] ) / ( M[, 1] * M[, 2] - M[, 3]^2 )
+	r <- numeric(p)
     ii <- ind[ind > 0]
     r[ind] <- Rfast::eachcol.apply(x, res[, 1], indices = ii)^2 + Rfast::eachcol.apply(x, res[, 2], indices = ii)^2
     sel <- which.max(r)
