@@ -100,7 +100,7 @@ Christos Adam \email{econp266@econ.soc.uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{vmgomp.ebic.update}, \link{vm.reg}
+\code{ \link{cv.vm.gomp}, \link{vmgomp.ebic.update}, \link{vm.reg}
 }
 }
 
