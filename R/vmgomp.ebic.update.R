@@ -1,6 +1,6 @@
 vmgomp.ebic.update <- function(res, n, p) {
 
-  len <- dim(res)[1]
+  len <- dim(res)[1] - 1
   sel <- 1:len
   if ( n > p )  gam <- 0 else gam <- 0.5
   for ( i in 1:len ) {
