@@ -42,7 +42,7 @@ cv.vm.gomp <- function(y, x, rads = TRUE, alpha = 0.05, R = 499L, tol = 1e-6, ma
   }
 
   perf <- Rfast::colmeans(perf)
-  names(kl) <- c("p-value", "eBIC")
+  names(perf) <- c("p-value", "eBIC")
   runtime <- proc.time() - runtime
 
   list(runtime = runtime, perf = perf)

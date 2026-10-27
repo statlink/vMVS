@@ -5,4 +5,4 @@ importFrom("Rfast", standardise, vmf.mle, rowsums, eachcol.apply)
 importFrom("stats", model.matrix)
 importFrom("Directional", makefolds)
 
-export(vm.reg, perm.reg0, perm.reg1, vm.gomp, vmgomp.ebic.update)
+export(vm.reg, perm.reg0, perm.reg1, vm.gomp, vmgomp.ebic.update, cv.vm.gomp)

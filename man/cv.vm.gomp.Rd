@@ -94,8 +94,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 }
 
 \examples{
-x <- matrix( rnorm(300 * 20), ncol = 20)
-y <- runif(300, 0, 2 * pi)
+x <- matrix( rnorm(200 * 20), ncol = 20)
+y <- runif(200, 0, 2 * pi)
 a <- cv.vm.gomp(y, x)
 }
 

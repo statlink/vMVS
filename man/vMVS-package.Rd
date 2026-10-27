@@ -14,7 +14,7 @@ Variable selection algorithms for the von Mises regression.
 Package: \tab vMVS\cr
 Type: \tab Package\cr
 Version: \tab 1.0 \cr
-Date: \tab 2026-10-25\cr
+Date: \tab 2026-10-27\cr
 License: \tab GPL-2\cr
 }
 }
@@ -28,6 +28,10 @@ Michail Tsagris <mtsagris@uoc.gr>.
 }
 
 \references{
+Tsagris M., Papadovasilakis Z., Lakiotaki K. and Tsamardinos I. (2022).
+The \eqn{\gamma}-OMP algorithm for feature selection with application to gene expression data.
+IEEE/ACM Transactions on Computational Biology and Bioinformatics, 19(2): 1214--1224.
+
 P. J. Paine, S. P. Preston, M. Tsagris and Andrew T. A. Wood (2020).
 Spherical regression models with general covariates and anisotropic errors.
 Statistics and Computing, 30(1): 153--165.
