@@ -25,7 +25,9 @@ cv.vm.gomp <- function(y, x, rads = TRUE, alpha = 0.05, R = 499L, tol = 1e-6, ma
       est <- vMVS::vm.reg(ytrain, xtrain[, res], xnew = xtest[, res], tol = tol,
                           maxiters = maxiters, ncores = ncores)$est
     }
-    perf[i, 1] <- sum(ytest * est) / ntest
+    cs  <- Rfast::rowsums(ytest * est)
+    mae <- sum( acos( pmin( pmax(cs, -1), 1 ) ) ) / ntest
+    perf[i, 1] <- mae * 180 / pi
     ### eBIC now
     res <- mod$ebic.res[-1, 1]
     if ( length(res) == 0 ) {
@@ -35,7 +37,9 @@ cv.vm.gomp <- function(y, x, rads = TRUE, alpha = 0.05, R = 499L, tol = 1e-6, ma
       est <- vMVS::vm.reg(ytrain, xtrain[, res], xnew = xtest[, res], tol = tol,
                           maxiters = maxiters, ncores = ncores)$est
     }
-    perf[i, 2] <- sum(ytest * est) / ntest
+    cs  <- Rfast::rowsums(ytest * est)
+    mae <- sum( acos( pmin( pmax(cs, -1), 1 ) ) ) / ntest
+    perf[i, 2] <- mae * 180 / pi
   }
 
   perf <- Rfast::colmeans(perf)
