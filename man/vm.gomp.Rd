@@ -64,7 +64,7 @@ with each selected variable and the p-value of each selected variable.
 }
 \item{ebic.res}{
 The same matrix as above, but with the variables that remaing after applying
-the eBIC.
+the extended BIC (eBIC) of Chen and Chen (2012) as an extra filter.
 }
 }
 
