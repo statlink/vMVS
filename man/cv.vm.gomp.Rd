@@ -63,7 +63,7 @@ The runtime of the algorithm.
 \item{perf}{
 A numeric vector with two elements, the estimated performance,
 when the significance testing and when the eBIC is used. The performance is
-given by \eqn{ \frac{1}{n_{test}}\sum_{i}^{n_{test}}cos^{-1}(y_i^T\hat{y}_i) } \frac{180}{\pi}.
+given by \eqn{\frac{180}{\pi}\frac{1}{n_{test}}\sum_{i=1}^{n_{test}}\cos^{-1}\left(y_i^\top\hat{y}_i\right)}.
 }
 }
 
