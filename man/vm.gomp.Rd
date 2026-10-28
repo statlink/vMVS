@@ -11,8 +11,8 @@ the von Mises regression.
 }
 
 \usage{
-vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, ebic = FALSE,
-model = FALSE, tol = 1e-6, maxiters = 500L, ncores = 1L)
+vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L,
+tol = 1e-6, maxiters = 500L, ncores = 1L)
 }
 
 \arguments{
@@ -37,13 +37,6 @@ The significance level.
 How many permutations to perform for the hypothesis testing of each candidate
 predictor variable
 }
-\item{ebic}{
-If you set this equal to TRUE, then it uses the exteded BIC to retain the candidate variable,
-even if it its p-value is less than the selected threshold.
-}
-\item{model}{
-Do you want to return the model with the final selected variables?
-}
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson algorithm.
 }
@@ -65,13 +58,13 @@ A list including:
 \item{runtime}{
 The runtime of the algorithm
 }
-\item{res}{
+\item{pvalue.res}{
 A matrix with three columns. The selected variable(s), the log-likelihood
 with each selected variable and the p-value of each selected variable.
 }
-\item{mod}{
-The output of the function \code{ \link{vm.reg} } where the model is fitted with
-the selected variables, if the argument "model" was set equal to TRUE.
+\item{ebic.res}{
+The same matrix as above, but with the variables that remaing after applying
+the eBIC.
 }
 }
 
@@ -100,7 +93,7 @@ Christos Adam \email{econp266@econ.soc.uoc.gr}.
 %}
 
 \seealso{
-\code{ \link{cv.vm.gomp}, \link{vmgomp.ebic.update}, \link{vm.reg}
+\code{ \link{cv.vm.gomp}, \link{vm.reg}
 }
 }
 
@@ -108,6 +101,5 @@ Christos Adam \email{econp266@econ.soc.uoc.gr}.
 x <- matrix( rnorm(500 * 50), ncol = 50)
 y <- runif(500, 0, 2 * pi)
 a <- vm.gomp(y, x)
-b <- vm.gomp(y, x, ebic = TRUE)
 }
 

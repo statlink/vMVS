@@ -1,4 +1,4 @@
-vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, ebic = FALSE, model = FALSE,
+vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L,
                     tol = 1e-6, maxiters = 500L, ncores = 1L) {
 
   runtime <- proc.time()
@@ -13,7 +13,7 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, eb
   ela <- Rfast::eachcol.apply(x, y[, 1])^2 + Rfast::eachcol.apply(x, y[, 2])^2
   sel <- which.max(ela)
   sela <- NULL
-  rho <- c( 0, perm.reg0( y, x[, sel, drop = FALSE], R = R,
+  rho <- c( 0, vMVS::perm.reg0( y, x[, sel, drop = FALSE], R = R,
             tol = tol, maxiters = maxiters, ncores = ncores) )
   i <- 2
   #x2 <- x^2        # once, outside the loop
@@ -22,7 +22,7 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, eb
     i <- i + 1
     sela <- c(sela, sel)
     ind[sela] <- 0
-    mod <- vm.reg(y, x[, sela, drop = FALSE], xnew = x[, sela, drop = FALSE],
+    mod <- vMVS::vm.reg(y, x[, sela, drop = FALSE], xnew = x[, sela, drop = FALSE],
                   tol = tol, maxiters = maxiters, ncores = ncores)
     lik[i - 1] <- mod$loglik
     res <- y - mod$est * mod$A1
@@ -34,35 +34,29 @@ vm.gomp <- function(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L, eb
     ii <- ind[ind > 0]
     r[ind] <- Rfast::eachcol.apply(x, res[, 1], indices = ii)^2 + Rfast::eachcol.apply(x, res[, 2], indices = ii)^2
     sel <- which.max(r)
-    rho[i] <- perm.reg1(y, x = x[, sel, drop = FALSE], xsel = x[, sela, drop = FALSE],
+    rho[i] <- vMVS::perm.reg1(y, x = x[, sel, drop = FALSE], xsel = x[, sela, drop = FALSE],
                         R = R, tol = tol, maxiters = maxiters, ncores = ncores)
   }
 
   len <- length(sela)
-  res <- cbind( c(0, sela), lik[1:(len + 1)], c(NA, rho[seq_len(len) + 1]) )
-  colnames(res) <- c("Selected", "log-likelihood", "p-value")
+  pvalue.res <- cbind( c(0, sela), lik[1:(len + 1)], c(NA, rho[seq_len(len) + 1]) )
+  colnames(pvalue.res) <- c("Selected", "log-likelihood", "p-value")
 
-  if ( ebic  &  dim(res)[1] > 1 ) {
+  res <- pvalue.res   ;   ebic.res <- NULL
+  if ( dim(res)[1] > 1 ) {
     sel <- 1:c(len + 1)
-    if ( n > p )  gam <- 0 else gam <- 0.5
+    if ( n > p )  gam <- 0  else  gam <- 0.5
     for ( i in 1:len ) {
       ebic <- 2 * log(n) + 2 * gam * (p - i) / (i + 1)
       if ( 2 * (res[i + 1, 2] - res[i, 2] ) < ebic ) {
         sel[i + 1] <- 0
       }
     }
-    res <- res[sel, , drop = FALSE]
-    if ( dim(res)[1] > 1 )  sela <- res[-1, 1]  else  sela <- 0
-  }
-
-  mod <- NULL
-  if ( model &  dim(res)[1] > 1 )  {
-    mod <- vm.reg(y, x[, sela, drop = FALSE], tol = tol, maxiters = maxiters, ncores = ncores)
-  }
+    ebic.res <- res[sel, , drop = FALSE]
+   }
 
   runtime <- proc.time() - runtime
-
-  list(runtime = runtime, res = res, mod = mod)
+  list(runtime = runtime, pvalue.res = pvalue.res, ebic.res = ebic.res)
 }
 
 

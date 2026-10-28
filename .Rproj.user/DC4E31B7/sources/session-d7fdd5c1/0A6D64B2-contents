@@ -1,0 +1,8 @@
+useDynLib(vMVS, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+importFrom(RcppParallel,RcppParallelLibs)
+importFrom("Rfast", standardise, vmf.mle, rowsums, eachcol.apply)
+importFrom("stats", model.matrix)
+importFrom("Directional", makefolds)
+
+export(vm.reg, perm.reg0, perm.reg1, vm.gomp, cv.vm.gomp)

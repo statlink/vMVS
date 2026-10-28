@@ -17,7 +17,7 @@ cv.vm.gomp <- function(y, x, rads = TRUE, alpha = 0.05, R = 499L, tol = 1e-6, ma
     ytrain <- y[-folds[[ i ]], ]
     mod <- vMVS::vm.gomp(ytrain, xtrain, alpha = alpha, R = R, tol = tol, maxiters = maxiters, ncores = ncores)
     ntest <- dim(ytest)[1]
-    res <- mod$res[-1, 1]
+    res <- mod$pvalue.res[-1, 1]
     if ( length(res) == 0 ) {
       est <- Rfast::vmf.mle(y)$mu
       est <- matrix( rep(est, ntest), nrow = ntest, byrow = TRUE)
@@ -27,16 +27,13 @@ cv.vm.gomp <- function(y, x, rads = TRUE, alpha = 0.05, R = 499L, tol = 1e-6, ma
     }
     perf[i, 1] <- sum(ytest * est) / ntest
     ### eBIC now
-    if ( length(res) > 0 ) {
-      res <- vMVS::vmgomp.ebic.update(mod$res, dim(ytrain)[1], p)[-1, 1]
-      if ( length(res) == 0 ) {
-        est <- Rfast::vmf.mle(y)$mu
-        est <- matrix( rep(est, ntest), nrow = ntest, byrow = TRUE)
-      } else  vMVS::vm.reg(ytrain, xtrain[, res], xnew = xtest[, res], tol = tol,
-                           maxiters = maxiters, ncores = ncores)$est
-    } else {
+    res <- mod$ebic.res[-1, 1]
+    if ( length(res) == 0 ) {
       est <- Rfast::vmf.mle(y)$mu
       est <- matrix( rep(est, ntest), nrow = ntest, byrow = TRUE)
+    } else {
+      est <- vMVS::vm.reg(ytrain, xtrain[, res], xnew = xtest[, res], tol = tol,
+                          maxiters = maxiters, ncores = ncores)$est
     }
     perf[i, 2] <- sum(ytest * est) / ntest
   }
