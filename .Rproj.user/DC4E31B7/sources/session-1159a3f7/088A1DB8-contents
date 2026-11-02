@@ -1,0 +1,16 @@
+Package: vMVS
+Type: Package
+Title: Variable Selection Algorithms For the von Mises Regression
+Version: 1.0
+Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
+             person("Christos", "Adam", role = "aut", email = "econp266@econ.soc.uoc.gr",
+             comment = c(ORCID = "0009-0003-3244-7034")))
+Author: Michail Tsagris [aut, cre]
+Maintainer: Michail Tsagris <mtsagris@uoc.gr>
+Description: Functions to perform variable selection for the von Mises regression model. Paine, Preston, Tsagris and Wood (2020), <doi:10.1007/s11222-019-09872-2>. 
+License: GPL (>= 2)
+Imports: Directional, Rcpp (>= 1.1.2), RcppParallel (>= 5.1.11.2), Rfast, stats
+LinkingTo: Rcpp, RcppParallel, RcppArmadillo, RcppGSL
+SystemRequirements: GNU make
+Encoding: UTF-8
+Config/roxygen2/version: 8.1.1
