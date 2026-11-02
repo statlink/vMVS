@@ -11,7 +11,7 @@ the von Mises regression.
 }
 
 \usage{
-vm.gomp(y, x, rads = TRUE, xstand = TRUE, alpha = 0.05, R = 499L,
+vm.gomp(y, x, rads = TRUE, alpha = 0.05, R = 499L,
 tol = 1e-6, maxiters = 500L, ncores = 1L)
 }
 
@@ -26,9 +26,6 @@ columns are the variables.
 }
 \item{rads}{
 If the response is expressed in angles set this to FALSE.
-}
-\item{xstand}{
-If this is TRUE the independent variables are standardised.
 }
 \item{alpha}{
 The significance level.
